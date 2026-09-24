@@ -1,0 +1,11 @@
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import '@eonasdan/tempus-dominus/dist/css/tempus-dominus.css';
+
+body {
+    background: rgb(248, 248, 252);
+}
+
+label.required::after {
+    content: " *";
+}
