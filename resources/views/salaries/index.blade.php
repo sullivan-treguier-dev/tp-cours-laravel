@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="w-75 mx-auto mt-4 p-3 border rounded-3 bg-white shadow">
+    <div class="w-75 mx-auto my-4 p-3 border rounded-3 bg-white shadow">
         <div class="d-flex justify-content-between align-items-center">
             <h1>Liste des salaries</h1>
             <a href="{{ route('salarie.create') }}" class="btn btn-primary me-2">Ajouter un salarie</a>

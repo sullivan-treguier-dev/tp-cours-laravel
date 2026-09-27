@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="w-75 mx-auto mt-4 p-3 border rounded-3 bg-white shadow">
+    <div class="w-75 mx-auto my-4 p-3 border rounded-3 bg-white shadow">
         <h1>{{ $salarie === null ? 'Création' : 'Modification' }} du salarié</h1>
         <form action="{{ $salarie === null ? route('salarie.store') : route('salarie.update', $salarie->id) }}" method="POST">
             @csrf

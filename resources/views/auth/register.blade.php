@@ -56,6 +56,8 @@
                     @enderror
                 </div>
 
+                <a href="{{ route('login') }}" class="link-compte">Déjà un compte ?</a>
+
                 <div class="mx-auto">
                     <button type="submit" class="btn btn-dark">
                         Inscription

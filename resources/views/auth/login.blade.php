@@ -8,7 +8,7 @@
     @vite(['resources/js/app.js', 'resources/scss/app.scss'])
 </head>
 <body>
-    <h1 class="text-center">Bienvenue sur le Suivi !</h1>
+    <h1 class="text-center mt-5">Bienvenue sur le Suivi !</h1>
     <form action="{{ route('login.store') }}" method="post">
         @csrf
         <div class="mx-auto w-50 mt-5">
@@ -26,7 +26,7 @@
                     <label for="password">Mot de passe</label>
                 </div>
 
-                <a href="{{ url('register') }}">Pas de compte ?</a>
+                <a href="{{ route('register') }}" class="link-compte">Pas de compte ?</a>
 
                 <div class="mx-auto">
                     <button type="submit" class="btn btn-dark">

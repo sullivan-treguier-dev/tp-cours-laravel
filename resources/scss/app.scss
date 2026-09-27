@@ -9,3 +9,27 @@ body {
 label.required::after {
     content: " *";
 }
+
+a {
+    text-decoration: none;
+}
+
+a>h1 {
+    color: #000;
+}
+
+.navlink {
+    color: #000;
+}
+
+.navlink:hover {
+    text-decoration: underline;
+}
+
+.dropdown-toggle {
+    color: #000;
+}
+
+.link-compte:hover {
+    text-decoration: underline;
+}

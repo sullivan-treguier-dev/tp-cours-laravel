@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="w-75 mx-auto mt-4 p-3 border rounded-3 bg-white shadow">
+    <div class="w-75 mx-auto my-4 p-3 border rounded-3 bg-white shadow">
         <h1>{{ $absence === null ? 'Création' : 'Modification' }} de l'absence</h1>
         <form action="{{ $absence === null ? route('absence.store') : route('absence.update', $absence->id) }}" method="POST">
             @csrf

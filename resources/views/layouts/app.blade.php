@@ -9,19 +9,30 @@
 </head>
 <body>
     <header class="border px-3 d-flex justify-content-between align-items-center bg-white">
-        <h1 class="fw-bold">Suivi</h1>
+        <a href="{{ route('dashboard') }}"><h1 class="fw-bold">Suivi</h1></a>
         <div class="d-flex gap-3">
-            <a href="{{ route('absence.index') }}">Absences</a>
-            <a href="{{ route('salarie.index') }}">Salariés</a>
+            <a href="{{ route('absence.index') }}" class="navlink">Absences</a>
+            @if (auth()->user()->is_admin)
+                <a href="{{ route('salarie.index') }}" class="navlink">Salariés</a>
+            @endif
         </div>
-        <form action="{{ route('logout') }}" method="post">
-            @csrf
-            <button type="submit" class="btn btn-danger">Déconnexion</button>
-        </form>
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ auth()->user()->prenom . ' ' . auth()->user()->nom }}
+            </a>
+            <ul class="dropdown-menu">
+                <li class="d-flex justify-content-center">
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Déconnexion</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
     </header>
     @yield('content')
 </body>
-<footer class="text-center text-white bg-dark">
+<footer class="text-center text-white bg-dark py-4">
     @footer()
 </footer>
 </html>

@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index() {
         return view(static::PATH_VIEWS . '.index', [
-            'salaries' => User::all()
+            'salaries' => User::where('is_admin', false)->get()
         ]);
     }
 

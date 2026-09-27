@@ -7,9 +7,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/dashboard');
 
 Route::get("/number/{number}", [AccueilController::class, 'index'])->name('page');
 
@@ -20,6 +18,7 @@ Route::get("/division/{a?}/{b?}", [MathController::class, 'division'])->name('di
 
 Route::resource('/test', TestController::class)->only('index');
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [AccueilController::class, 'dashboard'])->name('dashboard');
     Route::resource('/absence', AbsenceController::class);
     Route::resource('/salarie', UserController::class)->except('show')->middleware('admin');
 });
