@@ -18,10 +18,10 @@
                     </div>
                     <div class="d-flex flex-nowrap gap-1">
                         <a href="{{ route('salarie.edit', $salarie->id) }}" class="btn btn-warning"><i class="bi bi-pen"></i></a>
-                        <form action="{{ route('salarie.destroy', $salarie->id) }}" method="post">
+                        <form action="{{ route('salarie.destroy', $salarie->id) }}" method="post" class="form-confirm-supprimer-salarie" data-salarie="{{ $salarie->prenom . ' ' . $salarie->nom }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger form-control-supprimer-salarie"><i class="bi bi-trash"></i></button>
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                         </form>
                     </div>
                 </div>

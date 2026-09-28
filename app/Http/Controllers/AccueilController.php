@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absence;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 
 class AccueilController extends Controller
@@ -11,6 +13,9 @@ class AccueilController extends Controller
     }
 
     public function dashboard(): View {
-        return view('dashboard');
+        return view('dashboard', [
+            'nbAbsence' => Absence::count(),
+            'nbSalarie' => User::count()
+        ]);
     }
 }

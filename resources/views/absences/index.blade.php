@@ -19,10 +19,10 @@
                     <div class="d-flex flex-nowrap gap-1">
                         <a href="{{ route('absence.show', $absence->id) }}" class="btn btn-dark"><i class="bi bi-eye"></i></a>
                         <a href="{{ route('absence.edit', $absence->id) }}" class="btn btn-warning"><i class="bi bi-pen"></i></a>
-                        <form action="{{ route('absence.destroy', $absence->id) }}" method="post">
+                        <form action="{{ route('absence.destroy', $absence->id) }}" method="post" class="form-confirm-supprimer-absence">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger form-control-supprimer-absence"><i class="bi bi-trash"></i></button>
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                         </form>
                     </div>
                 </div>

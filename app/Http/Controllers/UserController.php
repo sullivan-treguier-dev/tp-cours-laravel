@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SalarieRequest;
-use App\Models\Absence;
 use App\Models\User;
 
 class UserController extends Controller
@@ -34,7 +33,7 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        Absence::create([
+        User::create([
             'nom' => $validated['nom'],
             'prenom' => $validated['prenom'],
             'email' => $validated['email'],
@@ -59,12 +58,20 @@ class UserController extends Controller
     {
         $validated = $request->validated();
 
-        $salarie->update([
-            'nom' => $validated['nom'],
-            'prenom' => $validated['prenom'],
-            'email' => $validated['email'],
-            'password' => $validated['password']
-        ]);
+        if ($validated["password"]) {
+            $salarie->update([
+                'nom' => $validated['nom'],
+                'prenom' => $validated['prenom'],
+                'email' => $validated['email'],
+                'password' => $validated['password']
+            ]);
+        } else {
+            $salarie->update([
+                'nom' => $validated['nom'],
+                'prenom' => $validated['prenom'],
+                'email' => $validated['email']
+            ]);
+        }
 
         return redirect(route('salarie.index'))->with('success', "Le salarié a été modifié !");
     }
@@ -75,7 +82,7 @@ class UserController extends Controller
     public function destroy(User $salarie)
     {
         $salarie->delete();
-        return redirect()->back()->with('sucess', "Le salarié a été supprimés !");
+        return redirect()->back()->with('success', "Le salarié a été supprimé !");
     }
 
     private function data(?User $salarie) {

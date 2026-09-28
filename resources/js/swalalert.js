@@ -34,9 +34,30 @@ const supprimerAbsence = document.querySelectorAll('.form-confirm-supprimer-abse
             cancelButtonText: "Non"
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.submit = boutonSupprimerAbsence.submit;
+                boutonSupprimerAbsence.submit();
             }
         });
     });
-})
+});
+
+const supprimerSalarie = document.querySelectorAll('.form-confirm-supprimer-salarie').forEach(boutonSupprimerSalarie => {
+    boutonSupprimerSalarie.addEventListener('submit', e => {
+        e.preventDefault();
+
+        Swal.fire({
+            title: "Supprimer ce salarié ?",
+            text: "Confirmez-vous de vouloir supprimer '" + boutonSupprimerSalarie.dataset.salarie + "' ?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Oui, supprimer",
+            cancelButtonText: "Non"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                boutonSupprimerSalarie.submit();
+            }
+        });
+    });
+});
 

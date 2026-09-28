@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class SalarieRequest extends FormRequest
 {
@@ -21,11 +22,17 @@ class SalarieRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'nom' => 'required|string|min:2',
             'prenom' => 'required|string|min:2',
             'email' => 'required|email',
-            'password' => 'required|password|string',
         ];
+
+        if ($this->routeIs('salarie.create')) {
+            $rules['password'] = ['required', 'string', Password::min(8)];
+        } else {
+            $rules['password'] = ['nullable', 'string', Password::min(8)];
+        }
+        return $rules;
     }
 }

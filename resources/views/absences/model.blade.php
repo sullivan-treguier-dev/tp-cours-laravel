@@ -34,8 +34,8 @@
                 @enderror
 
                 <div class="form-floating">
-                    <select name="salarie_id" id="salarie" class="form-control">
-                        <option value="0" {{ $absence === null ? 'selected' : ''}} disabled></option>
+                    <select name="salarie_id" id="salarie" class="form-control select2">
+                        <option></option>
                         @foreach ($salaries as $salarie)
                             <option value="{{ $salarie->id }}" {{ $absence !== null && $salarie->id === $absence->user_id ? 'selected' : ''}}>{{ $salarie->nom . ' ' . $salarie->prenom }}</option>
                         @endforeach

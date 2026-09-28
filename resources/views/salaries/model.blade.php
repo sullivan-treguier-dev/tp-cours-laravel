@@ -34,17 +34,9 @@
                 @enderror
 
                 <div class="form-floating">
-                    <input type="password" name="password" id="password" class="form-control" required value="{{ old('password', $salarie === null ? '' : $salarie->password) }}">
-                    <label for="password" class="required">Mot de passe</label>
+                    <input type="password" name="password" id="password" class="form-control" {{ $salarie === null ? 'required' : ''}} value="{{ old('password') }}">
+                    <label for="password" class="{{ $salarie === null ? 'required' : ''}}">Mot de passe</label>
                     @error('password')
-                        <div class="text-white fw-bold bg-danger shadow rounded-3 p-2 mt-2">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="form-floating">
-                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required>
-                    <label for="password_confirmation" class="required">Confirmation du mot de passe</label>
-                    @error('password_confirmation')
                         <div class="text-white fw-bold bg-danger shadow rounded-3 p-2 mt-2">{{ $message }}</div>
                     @enderror
                 </div>
