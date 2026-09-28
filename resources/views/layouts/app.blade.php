@@ -9,11 +9,11 @@
 </head>
 <body>
     <header class="border px-3 d-flex justify-content-between align-items-center bg-white">
-        <a href="{{ route('dashboard') }}"><h1 class="fw-bold">Suivi</h1></a>
+        <a href="{{ route('dashboard') }}"><h1 class="fw-bold">{{ __('Follow-Up') }}</h1></a>
         <div class="d-flex gap-3">
             <a href="{{ route('absence.index') }}" class="navlink">Absences</a>
             @if (auth()->user()->is_admin)
-                <a href="{{ route('salarie.index') }}" class="navlink">Salariés</a>
+                <a href="{{ route('salarie.index') }}" class="navlink">{{ __('Employees') }}</a>
             @endif
         </div>
         <div class="dropdown">
@@ -24,7 +24,7 @@
                 <li class="d-flex justify-content-center">
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
-                        <button type="submit" class="btn btn-danger">Déconnexion</button>
+                        <button type="submit" class="btn btn-danger">{{ __('Logout') }}</button>
                     </form>
                 </li>
             </ul>

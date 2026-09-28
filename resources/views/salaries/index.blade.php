@@ -3,8 +3,8 @@
 @section('content')
     <div class="w-75 mx-auto my-4 p-3 border rounded-3 bg-white shadow">
         <div class="d-flex justify-content-between align-items-center">
-            <h1>Liste des salaries</h1>
-            <a href="{{ route('salarie.create') }}" class="btn btn-primary me-2">Ajouter un salarie</a>
+            <h1>{{ __('List of employees') }}</h1>
+            <a href="{{ route('salarie.create') }}" class="btn btn-primary me-2">{{ __('Add employee') }}</a>
         </div>
         @if(session('success'))
             <div class="border border-success border-3 rounded-3 text-success fw-bold bg-success bg-opacity-25 p-3">{{ session('success') }}</div>
