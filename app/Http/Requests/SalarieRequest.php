@@ -26,6 +26,7 @@ class SalarieRequest extends FormRequest
             'nom' => 'required|string|min:2',
             'prenom' => 'required|string|min:2',
             'email' => 'required|email',
+            "role" => 'required|string',
         ];
 
         if ($this->routeIs('salarie.create')) {

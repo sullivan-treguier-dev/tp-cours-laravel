@@ -11,9 +11,13 @@
     <header class="border px-3 d-flex justify-content-between align-items-center bg-white">
         <a href="{{ route('dashboard') }}"><h1 class="fw-bold">{{ __('Follow-Up') }}</h1></a>
         <div class="d-flex gap-3">
-            <a href="{{ route('absence.index') }}" class="navlink">Absences</a>
-            @if (auth()->user()->is_admin)
+            @if (auth()->user()->isA('admin') || auth()->user()->isA('salarie'))
+                <a href="{{ route('absence.index') }}" class="navlink">Absences</a>
+            @endif
+            @if (auth()->user()->isA('admin'))
                 <a href="{{ route('salarie.index') }}" class="navlink">{{ __('Employees') }}</a>
+                <a href="{{ route('role.index') }}" class="navlink">{{ __('Roles') }}</a>
+                <a href="{{ route('ability.index') }}" class="navlink">{{ __('Abilities') }}</a>
             @endif
         </div>
         <div class="dropdown">

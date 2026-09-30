@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Absence;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Silber\Bouncer\Database\Ability;
+use Silber\Bouncer\Database\Role;
 
 class AccueilController extends Controller
 {
@@ -14,8 +16,10 @@ class AccueilController extends Controller
 
     public function dashboard(): View {
         return view('dashboard', [
-            'nbAbsence' => Absence::count(),
-            'nbSalarie' => User::count()
+            'nbAbsences' => Absence::count(),
+            'nbSalaries' => User::count(),
+            'nbRoles' => Role::count(),
+            'nbAbility' => Ability::count()
         ]);
     }
 }

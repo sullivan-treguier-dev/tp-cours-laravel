@@ -9,19 +9,11 @@
             <div class="d-grid gap-2 rounded-3 bg-secondary p-3 m-2">
                 <div class="d-flex">
                     <div class="form-floating col-6">
-                        <input type="text" name="nom" id="nom" class="form-control" required value="{{ old('nom', $salarie === null ? '' : $salarie->nom) }}">
-                        <label for="nom" class="required">{{ __('Last Name') }}</label>
-                        @error('nom')
-                            <div class="text-white fw-bold bg-danger shadow rounded-3 p-2 mt-2">{{ $message }}</div>
-                        @enderror
+                        <x-inputs.text-input :property="$salarie" entity="nom" :label="__('Last Name')" :required="true"/>
                     </div>
 
                     <div class="form-floating col-6">
-                        <input type="text" name="prenom" id="prenom" class="form-control" required value="{{ old('prenom', $salarie === null ? '' : $salarie->prenom) }}">
-                        <label for="prenom" class="required">{{ __('First Name') }}</label>
-                        @error('prenom')
-                            <div class="text-white fw-bold bg-danger shadow rounded-3 p-2 mt-2">{{ $message }}</div>
-                        @enderror
+                        <x-inputs.text-input :property="$salarie" entity="prenom" :label="__('First Name')" :required="true"/>
                     </div>
                 </div>
 
@@ -37,6 +29,19 @@
                     <input type="password" name="password" id="password" class="form-control" {{ $salarie === null ? 'required' : ''}} value="{{ old('password') }}">
                     <label for="password" class="{{ $salarie === null ? 'required' : ''}}">{{ __('Password') }}</label>
                     @error('password')
+                        <div class="text-white fw-bold bg-danger shadow rounded-3 p-2 mt-2">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-floating">
+                    <select name="role" id="role" class="form-control select2">
+                        <option></option>
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->name }}" {{ $salarie !== null && $salarie->getRoles()[0] === $role->name ? 'selected' : ''}}>{{ $role->title }}</option>
+                        @endforeach
+                    </select>
+                    <label for="role" class="required">{{ __('Role') }}</label>
+                    @error('role')
                         <div class="text-white fw-bold bg-danger shadow rounded-3 p-2 mt-2">{{ $message }}</div>
                     @enderror
                 </div>

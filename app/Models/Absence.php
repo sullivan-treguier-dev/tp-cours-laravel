@@ -18,7 +18,7 @@ class Absence extends Model
         "user_id",
     ];
 
-    protected function user() {
+    public function user() {
         return $this->belongsTo(User::class);
     }
 

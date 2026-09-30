@@ -2,26 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\SalarieRepository;
 use App\Http\Requests\SalarieRequest;
 use App\Models\User;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Silber\Bouncer\Database\Role;
 
 class UserController extends Controller
 {
     public const PATH_VIEWS = 'salaries';
 
+    public SalarieRepository $salarieRepository;
+
+    public function __construct(SalarieRepository $salarieRepository)
+    {
+        return $this->salarieRepository = $salarieRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index() {
+    public function index(): View
+    {
         return view(static::PATH_VIEWS . '.index', [
-            'salaries' => User::where('is_admin', false)->get()
+            'salaries' => User::orderBy('nom')->get()
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return $this->model(null);
     }
@@ -29,16 +41,11 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(SalarieRequest $request)
+    public function store(SalarieRequest $request): RedirectResponse
     {
         $validated = $request->validated();
 
-        User::create([
-            'nom' => $validated['nom'],
-            'prenom' => $validated['prenom'],
-            'email' => $validated['email'],
-            'password' => $validated['password']
-        ]);
+        $this->salarieRepository->create($validated);
 
         return redirect(route('salarie.index'))->with('success', "Le salarié a été ajouté !");
     }
@@ -46,7 +53,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $salarie)
+    public function edit(User $salarie): View
     {
         return $this->model($salarie);
     }
@@ -54,24 +61,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(SalarieRequest $request, User $salarie)
+    public function update(SalarieRequest $request, User $salarie): RedirectResponse
     {
         $validated = $request->validated();
 
-        if ($validated["password"]) {
-            $salarie->update([
-                'nom' => $validated['nom'],
-                'prenom' => $validated['prenom'],
-                'email' => $validated['email'],
-                'password' => $validated['password']
-            ]);
-        } else {
-            $salarie->update([
-                'nom' => $validated['nom'],
-                'prenom' => $validated['prenom'],
-                'email' => $validated['email']
-            ]);
-        }
+        $this->salarieRepository->update($validated, $salarie);
 
         return redirect(route('salarie.index'))->with('success', "Le salarié a été modifié !");
     }
@@ -79,19 +73,22 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $salarie)
+    public function destroy(User $salarie): RedirectResponse
     {
         $salarie->delete();
         return redirect()->back()->with('success', "Le salarié a été supprimé !");
     }
 
-    private function data(?User $salarie) {
+    private function data(?User $salarie): array
+    {
         return [
-            'salarie' => $salarie
+            'salarie' => $salarie,
+            'roles' => Role::all(),
         ];
     }
 
-    private function model(?User $salarie) {
+    private function model(?User $salarie): View
+    {
         return view(static::PATH_VIEWS . '.model', $this->data($salarie));
     }
 }

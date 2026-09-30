@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AbilityController;
 use App\Http\Controllers\AbsenceController;
 use App\Http\Controllers\AccueilController;
 use App\Http\Controllers\MathController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +23,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AccueilController::class, 'dashboard'])->name('dashboard');
     Route::resource('/absence', AbsenceController::class);
     Route::resource('/salarie', UserController::class)->except('show')->middleware('admin');
+    Route::resource('/role', RoleController::class)->middleware('admin');
+    Route::resource('ability', AbilityController::class)->except(['show']);
+    Route::middleware('admin')->prefix('role/{role}')->controller(RoleController::class)->group(function () {
+        Route::get('/attach', 'attach')->name('role.attach');
+        Route::post('/attach', 'abilityAttach')->name('role.attach.ability');
+        Route::delete('/disattach/{ability}', 'disattach')->name('role.disattach');
+    });
 });

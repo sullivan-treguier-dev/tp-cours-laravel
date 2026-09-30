@@ -12,7 +12,7 @@ select2();
 
 document.addEventListener('DOMContentLoaded', () => {
     $('.select2').select2({
-        placeholder: 'Rechercher une absence...',
+        placeholder: 'Rechercher...',
         allowClear: true,
         minimumResultsForSearch: 0
     });

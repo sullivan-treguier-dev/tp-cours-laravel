@@ -26,8 +26,6 @@
                     <label for="password">{{ __('Password') }}</label>
                 </div>
 
-                <a href="{{ route('register') }}" class="link-compte">{{ __("Don't have account ?") }}</a>
-
                 <div class="mx-auto">
                     <button type="submit" class="btn btn-dark">
                         {{ __('Login') }}

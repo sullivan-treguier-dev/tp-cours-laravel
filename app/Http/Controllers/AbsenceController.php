@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\AbsenceRepository;
 use App\Http\Requests\AbsenceRequest;
 use App\Models\Absence;
 use App\Models\User;
@@ -9,13 +10,21 @@ use App\Models\User;
 class AbsenceController extends Controller
 {
     public const PATH_VIEWS = 'absences';
+
+    public AbsenceRepository $absenceRepository;
+
+    public function __construct(AbsenceRepository $absenceRepository)
+    {
+        $this->absenceRepository = $absenceRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         return view(static::PATH_VIEWS . '.index', [
-            'absences' => Absence::orderByDesc('id')->get()
+            'absences' => $this->absenceRepository->roleViewOptions()
         ]);
     }
 
@@ -34,12 +43,7 @@ class AbsenceController extends Controller
     {
         $validated = $request->validated();
 
-        Absence::create([
-            'date_debut' => $validated['date_debut'],
-            'date_fin' => $validated["date_fin"],
-            'motif' => $validated['motif'],
-            'user_id' => $validated['salarie_id'],
-        ]);
+        $this->absenceRepository->create($validated);
 
         return redirect(route('absence.index'))->with('success', "L'absence a été ajouté !");
     }
@@ -67,12 +71,7 @@ class AbsenceController extends Controller
     {
         $validated = $request->validated();
 
-        $absence->update([
-            'date_debut' => $validated['date_debut'],
-            'date_fin' => $validated['date_fin'],
-            'motif' => $validated['motif'],
-            'user_id' => $validated['salarie_id']
-        ]);
+        $this->absenceRepository->update($validated, $absence);
 
         return redirect(route('absence.index'))->with('success', "L'absence n°{$absence->id} a été modifié !");
     }
@@ -83,7 +82,7 @@ class AbsenceController extends Controller
     public function destroy(Absence $absence)
     {
         $absence->delete();
-        return redirect()->back()->with('sucess', "L'absence a été retiré !");
+        return redirect()->back()->with('success', "L'absence a été retiré !");
     }
 
     private function data(?Absence $absence) {
